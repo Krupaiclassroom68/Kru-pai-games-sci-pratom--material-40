@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kru Pai Classroom | แบบทดสอบ วิทยาศาสตร์ ป.3–ป.4 : วัสดุ (40 ข้อ)</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#1e88e5;      /* น้ำเงินสด */
+    --brand-dark:#1565c0; /* น้ำเงินเข้ม */
+    --accent:#00bfa5;     /* เขียวอมฟ้า */
+    --bg:#f5f7fb;         /* พื้นอ่อน */
+    --ink:#1f2937;        /* ตัวอักษร */
+    --card:#ffffff;       /* กล่อง */
+    --correct:#22c55e;
+    --wrong:#ef4444;
+    --muted:#64748b;
+    --yellow:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Prompt",system-ui,Segoe UI,Arial,sans-serif}
+  .wrap{max-width:1000px;margin:auto;padding:16px}
+  header{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;border-radius:20px;padding:22px;
+    display:flex;gap:16px;align-items:center;justify-content:space-between;
+    box-shadow:0 10px 24px rgba(0,0,0,.12)
+  }
+  .logo{
+    display:flex; align-items:center; gap:12px;
+  }
+  .logo-badge{
+    width:56px;height:56px;border-radius:16px;background:#fff;color:var(--brand-dark);
+    display:grid;place-items:center;font-weight:800;box-shadow:0 6px 16px rgba(0,0,0,.15)
+  }
+  h1{font-size:clamp(18px,3.2vw,26px);margin:0}
+  .subtitle{opacity:.95;font-size:clamp(14px,2.4vw,16px);margin-top:4px}
+  .card{
+    background:var(--card);border-radius:18px;padding:18px;margin-top:16px;
+    box-shadow:0 10px 24px rgba(0,0,0,.06)
+  }
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:880px){ .grid-2{grid-template-columns:1fr} }
+  label{font-weight:600}
+  input[type="text"]{
+    width:100%;padding:12px 14px;border-radius:12px;border:2px solid #e5e7eb;font-size:18px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 18px;border-radius:14px;border:none;cursor:pointer;
+    background:var(--brand);color:#fff;font-weight:700;font-size:18px;
+    box-shadow:0 10px 16px rgba(30,136,229,.25);
+    transition:.15s transform ease,.15s filter ease
+  }
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.03)}
+  .btn.secondary{background:#0ea5e9}
+  .btn.ghost{background:#fff;color:var(--brand-dark);border:2px solid var(--brand);box-shadow:none}
+  .notice{
+    background:#e3f2fd;border-left:6px solid var(--brand-dark);
+    padding:12px 14px;border-radius:12px;color:#0f172a
+  }
+  .quiz-title{font-size:20px;font-weight:700;margin:6px 0 10px}
+  .q-item{
+    border:2px dashed #e2e8f0;border-radius:16px;padding:16px;margin:12px 0;
+    background:#fff
+  }
+  .q-head{font-weight:700;margin-bottom:10px;font-size:18px}
+  .choices{display:grid;gap:10px}
+  .choice{
+    background:#f8fafc;border:2px solid #e5e7eb;border-radius:12px;padding:10px;
+    display:flex;gap:10px;align-items:flex-start;cursor:pointer
+  }
+  .choice input{transform:translateY(3px)}
+  .choice.correct{border-color:var(--correct);background:#ecfdf5}
+  .choice.wrong{border-color:var(--wrong);background:#fef2f2}
+  .explain{
+    margin-top:10px;padding:10px;border-left:5px solid var(--accent);
+    background:#f0fdfa;border-radius:8px;color:#065f46;display:none
+  }
+  .explain.show{display:block}
+  .pill{
+    display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;
+    background:#e2e8f0;color:#111827
+  }
+  .pill.correct{background:#dcfce7;color:#065f46}
+  .pill.wrong{background:#fee2e2;color:#991b1b}
+  .result{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between
+  }
+  .score-big{
+    font-size:clamp(26px,5.5vw,42px);font-weight:800;letter-spacing:.5px
+  }
+  .pass{color:var(--correct)}
+  .fail{color:var(--wrong)}
+  .brand-watermark{
+    text-align:center;color:var(--muted);font-weight:700;margin-top:8px
+  }
+  .footer-note{color:var(--muted);font-size:13px;margin-top:8px}
+  .blocked{
+    background:#fff3cd;border-left:6px solid var(--yellow);padding:12px;border-radius:12px;margin-top:12px
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="logo-badge">KP</div>
+        <div>
+          <h1>Kru Pai Classroom — แบบทดสอบ “วัสดุ” ป.3–ป.4</h1>
+          <div class="subtitle">40 ข้อ | เลือกคำตอบที่ถูกต้องที่สุด • เกณฑ์ผ่าน 80%</div>
+        </div>
+      </div>
+      <button class="btn ghost" id="btnScrollQuiz" aria-label="ไปที่ข้อสอบ">เริ่มทำข้อสอบ</button>
+    </header>
+
+    <!-- Start Card -->
+    <section class="card">
+      <div class="grid-2">
+        <div>
+          <label for="studentName">ชื่อนักเรียน</label>
+          <input id="studentName" type="text" placeholder="พิมพ์ชื่อนักเรียนที่นี่…" />
+        </div>
+        <div>
+          <label for="className">ชั้น/ห้อง (ถ้ามี)</label>
+          <input id="className" type="text" placeholder="เช่น ป.4/2" />
+        </div>
+      </div>
+      <div class="notice" style="margin-top:12px">
+        • ตอบให้ครบทุกข้อก่อนกด “ส่งคำตอบ” ระบบจึงจะแสดงถูก/ผิด และเฉลยใต้แต่ละข้อ<br/>
+        • คะแนนจะสรุปเป็นจำนวนข้อและเปอร์เซ็นต์อัตโนมัติ
+      </div>
+      <div class="brand-watermark">Kru Pai Classroom</div>
+    </section>
+
+    <!-- Quiz Card -->
+    <section class="card" id="quizCard" aria-live="polite">
+      <div class="quiz-title">ส่วนที่ 1: แบบเลือกตอบ 4 ตัวเลือก (ทั้งหมด 40 ข้อ)</div>
+      <div id="quizContainer"></div>
+
+      <div id="blockMsg" class="blocked" style="display:none"></div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn" id="submitBtn">ส่งคำตอบ</button>
+        <button class="btn secondary" id="resetBtn">เริ่มใหม่</button>
+      </div>
+      <div class="footer-note">© Kru Pai Classroom — Science • Materials (P3–P4)</div>
+    </section>
+
+    <!-- Result Card -->
+    <section class="card" id="resultCard" style="display:none">
+      <div class="result">
+        <div class="score-big" id="scoreText">คะแนน 0/40 (0%)</div>
+        <div id="passBadge" class="pill">สถานะ: -</div>
+      </div>
+      <div id="summaryLine" style="margin-top:10px"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn" id="reviewBtn">เลื่อนดูเฉลยอีกครั้ง</button>
+        <button class="btn ghost" id="backTopBtn">กลับขึ้นด้านบน</button>
+      </div>
+      <div class="brand-watermark">Kru Pai Classroom</div>
+    </section>
+  </div>
+
+<script>
+/* ---------- ข้อมูลข้อสอบ (40 ข้อ) ---------- */
+const QUESTIONS = [
+  // 01-10: ความหมาย/ประเภท/การจำแนก
+  { q: "ข้อใดคือความหมายของ “วัสดุ” ได้ถูกต้องที่สุด",
+    choices: ["สิ่งที่ใช้ประกอบอาหารเท่านั้น",
+              "สิ่งของที่มนุษย์นำมาใช้ประโยชน์ในการสร้าง/ทำของต่าง ๆ",
+              "สิ่งที่พบได้เฉพาะในธรรมชาติ",
+              "สิ่งที่มีสีสันสดใสเท่านั้น"],
+    answer: 1,
+    exp: "วัสดุคือสิ่งของที่มนุษย์นำมาใช้ประโยชน์เพื่อสร้าง/ผลิตของต่าง ๆ จะมาจากธรรมชาติหรือสังเคราะห์ก็ได้"
+  },
+  { q: "ข้อใดเป็น “วัสดุธรรมชาติ”",
+    choices: ["ไม้", "ไนลอน", "พลาสติก", "โฟม"],
+    answer: 0,
+    exp: "ไม้ได้มาจากต้นไม้ จัดเป็นวัสดุธรรมชาติ ส่วนไนลอน/พลาสติก/โฟมเป็นวัสดุสังเคราะห์"
+  },
+  { q: "ข้อใดเป็น “วัสดุสังเคราะห์”",
+    choices: ["ฝ้าย", "ขนแกะ", "แก้ว", "หิน"],
+    answer: 2,
+    exp: "แก้วผลิตจากการหลอมทรายและสารอื่น ๆ โดยมนุษย์ จัดเป็นวัสดุสังเคราะห์"
+  },
+  { q: "ถ้าต้องการทำขวดน้ำที่มองเห็นของเหลวภายใน ควรเลือกวัสดุใด",
+    choices: ["ไม้", "แก้ว", "เหล็ก", "ผ้า"],
+    answer: 1,
+    exp: "แก้วมีสมบัติโปร่งใส เหมาะสำหรับภาชนะที่ต้องการมองเห็นภายใน"
+  },
+  { q: "ข้อใดจับคู่ “วัสดุ : แหล่งที่มา” ได้ถูกต้อง",
+    choices: ["ฝ้าย : สังเคราะห์", "ยางธรรมชาติ : จากต้นยาง", "เหล็ก : ธรรมชาติ 100% ใช้เลย", "ไนลอน : จากสัตว์"],
+    answer: 1,
+    exp: "ยางธรรมชาติได้จากน้ำยางของต้นยางพารา (วัสดุธรรมชาติ)"
+  },
+  { q: "เสื้อกันหนาวควรทำจากวัสดุที่มีสมบัติเด่นข้อใด",
+    choices: ["นำความร้อนดี", "ไม่ยอมให้ความร้อนผ่านได้ง่าย", "เปราะแตกง่าย", "นำไฟฟ้าดีมาก"],
+    answer: 1,
+    exp: "เสื้อกันหนาวควรเก็บความร้อนได้ดี จึงต้องไม่เป็นตัวนำความร้อน"
+  },
+  { q: "ข้อใดเป็นประโยชน์ของการจำแนกวัสดุ",
+    choices: ["เพื่อเลือกใช้ให้เหมาะกับงาน", "เพื่อลดจำนวนวัสดุในโลก", "เพื่อให้สิ่งของแพงขึ้น", "เพื่อทำให้วัสดุทุกชนิดเหมือนกัน"],
+    answer: 0,
+    exp: "การจำแนกช่วยให้เลือกใช้วัสดุได้ตรงกับสมบัติและความเหมาะสมของงาน"
+  },
+  { q: "ภาชนะใส่อาหารร้อน ควรหลีกเลี่ยงวัสดุใด",
+    choices: ["แก้วทนความร้อน", "สเตนเลส", "พลาสติกที่ไม่ทนความร้อน", "เซรามิก"],
+    answer: 2,
+    exp: "พลาสติกที่ไม่ทนความร้อนอาจบิดงอ/ปล่อยสารปนเปื้อนเมื่อโดนร้อนจัด"
+  },
+  { q: "ข้อใดเป็นตัวอย่าง “การใช้วัสดุอย่างคุ้มค่า”",
+    choices: ["ใช้ครั้งเดียวทิ้ง", "ซ่อมแซมและนำกลับมาใช้ซ้ำ", "ทิ้งทันทีเมื่อสกปรกเล็กน้อย", "ซื้อใหม่เสมอแม้ยังใช้ได้"],
+    answer: 1,
+    exp: "การซ่อมแซม/ใช้ซ้ำ/รีไซเคิลเป็นการใช้วัสดุอย่างคุ้มค่าและรักษาสิ่งแวดล้อม"
+  },
+  { q: "วัสดุใดเหมาะทำสายไฟ",
+    choices: ["ทองแดง", "ไม้", "ยางลบ", "แก้ว"],
+    answer: 0,
+    exp: "ทองแดงเป็นตัวนำไฟฟ้าที่ดี จึงนิยมใช้ทำสายไฟ (หุ้มด้วยฉนวน)"
+  },
+
+  // 11-20: สมบัติ (ไฟฟ้า/ความร้อน/โปร่งใส/น้ำหนัก/ความแข็งแรง/ยืดหยุ่น)
+  { q: "ข้อใดเป็น “ฉนวนไฟฟ้า”",
+    choices: ["ทองแดง", "อะลูมิเนียม", "พลาสติก", "เหล็ก"],
+    answer: 2,
+    exp: "พลาสติกเป็นฉนวนไฟฟ้า จึงใช้หุ้มสายไฟเพื่อความปลอดภัย"
+  },
+  { q: "ข้อใดเป็น “ตัวนำความร้อน” ที่ดี",
+    choices: ["ไม้", "เหล็ก", "โฟม", "ผ้า"],
+    answer: 1,
+    exp: "โลหะอย่างเหล็ก/อะลูมิเนียมนำความร้อนได้ดี"
+  },
+  { q: "วัสดุใด “โปร่งใส” มากที่สุด",
+    choices: ["แก้วใส", "ไม้ไผ่", "กระดาษหนา", "ยางรถยนต์"],
+    answer: 0,
+    exp: "แก้วใสยอมให้แสงผ่านได้ดี เห็นวัตถุด้านหลังได้ชัด"
+  },
+  { q: "วัสดุใด “เหนียว/ยืดหยุ่น” เหมาะทำหนังยางรัดของ",
+    choices: ["หิน", "ยางธรรมชาติ", "แก้ว", "เซรามิก"],
+    answer: 1,
+    exp: "ยางธรรมชาติมีความยืดหยุ่นสูง เหมาะกับการรัด/ยืด"
+  },
+  { q: "ทำโต๊ะเรียนที่ต้องรับน้ำหนักได้ดีควรใช้วัสดุหลักใด",
+    choices: ["กระดาษ", "ไม้หรือโลหะ", "โฟม", "ผ้า"],
+    answer: 1,
+    exp: "ไม้หรือโลหะมีความแข็งแรง รับน้ำหนักและใช้งานได้ทนทาน"
+  },
+  { q: "ข้อใดคู่สมบัติ-ตัวอย่าง “ถูกต้อง”",
+    choices: ["เปราะแตกง่าย : หิน", "ยืดหยุ่น : แก้ว", "นำไฟฟ้า : ทองแดง", "ไม่ยอมผ่านแสง : แก้วใส"],
+    answer: 2,
+    exp: "ทองแดงนำไฟฟ้าได้ดี ส่วนหินมักแข็ง ไม่ได้เปราะแบบแก้ว/เซรามิก"
+  },
+  { q: "หม้อหุงต้มส่วน “ด้ามจับ” ควรใช้วัสดุใด",
+    choices: ["โลหะทั้งชิ้น", "ไม้/พลาสติกทนความร้อน", "แก้ว", "กระดาษแข็ง"],
+    answer: 1,
+    exp: "ด้ามจับควรไม่ร้อนมือ จึงใช้วัสดุไม่นำความร้อน เช่น ไม้ หรือพลาสติกทนความร้อน"
+  },
+  { q: "หน้าต่างที่ต้องการทั้งแข็งแรงและมองเห็นได้ นิยมใช้",
+    choices: ["ไม้ทึบ", "โลหะล้วน", "โครงอะลูมิเนียม + กระจก", "ผ้า"],
+    answer: 2,
+    exp: "โครงอะลูมิเนียมให้ความแข็งแรง ร่วมกับกระจกโปร่งใส"
+  },
+  { q: "วัสดุใด “เบา” เหมาะทำของเล่นเด็ก",
+    choices: ["เหล็กหนา", "หินแม่น้ำ", "พลาสติก", "แก้ว"],
+    answer: 2,
+    exp: "พลาสติกมีน้ำหนักเบา รูปทรงได้หลากหลายและปลอดภัยกว่าแก้ว/โลหะหนัก"
+  },
+  { q: "ถ้าต้องการฉนวนเก็บความเย็นในกระติกน้ำ ควรใช้",
+    choices: ["โฟม", "ทองแดง", "เหล็ก", "แก้วใสทั่วไป"],
+    answer: 0,
+    exp: "โฟมเป็นฉนวนความร้อนดี ช่วยลดการแลกเปลี่ยนความร้อน"
+  },
+
+  // 21-30: การเลือกใช้/การใช้งานจริง/ความปลอดภัย/แม่เหล็ก/ลอย-จม
+  { q: "สายไฟบ้านประกอบด้วยวัสดุหลักใดบ้าง",
+    choices: ["แกนทองแดง + หุ้มพลาสติก", "ไม้ + ยางลบ", "แก้ว + กระดาษ", "หิน + เชือก"],
+    answer: 0,
+    exp: "แกนนำไฟฟ้า (ทองแดง) และฉนวนหุ้ม (พลาสติก) เพื่อความปลอดภัย"
+  },
+  { q: "ตู้เย็นควรหลีกเลี่ยงชั้นวางจากวัสดุใดมากที่สุด",
+    choices: ["กระจกนิรภัย", "สเตนเลส", "พลาสติกแข็ง", "กระดาษลูกฟูก"],
+    answer: 3,
+    exp: "กระดาษไม่ทนความชื้นและน้ำหนักในตู้เย็น"
+  },
+  { q: "ข้อใดเหมาะเป็น “พื้นสนามเด็กเล่น” เพื่อลดการบาดเจ็บ",
+    choices: ["คอนกรีตแข็ง", "หินแกรนิต", "ยางสังเคราะห์", "กระจก"],
+    answer: 2,
+    exp: "ยางสังเคราะห์ยืดหยุ่น ช่วยซับแรงกระแทกได้ดี"
+  },
+  { q: "แม่เหล็กดึงดูดโลหะใดได้ชัดเจนที่สุด",
+    choices: ["เหล็ก", "อะลูมิเนียม", "ทองแดง", "สังกะสีบริสุทธิ์"],
+    answer: 0,
+    exp: "แม่เหล็กดึงดูดเหล็กได้ดี (เฟอโรแมกเนติก)"
+  },
+  { q: "ของเล่นเรือเล็กในอ่างน้ำควรใช้วัสดุแบบไหน",
+    choices: ["โลหะหนา", "ไม้/พลาสติกที่ลอยน้ำได้", "แก้วหนา", "หินขัดเงา"],
+    answer: 1,
+    exp: "ไม้/พลาสติกมีความหนาแน่นต่ำกว่าน้ำ ลอยน้ำได้สะดวก"
+  },
+  { q: "บานประตูห้องน้ำ ควรหลีกเลี่ยงวัสดุใด",
+    choices: ["พีวีซี", "อะลูมิเนียม", "ไม้ที่ไม่กันชื้น", "ไฟเบอร์ซีเมนต์"],
+    answer: 2,
+    exp: "ไม้ไม่กันชื้นอาจบวม/ผุง่ายในที่ชื้น"
+  },
+  { q: "ทำรั้วบ้านที่ต้องการความทนฝนแดด ใช้วัสดุใดเหมาะสุด",
+    choices: ["เหล็กชุบกันสนิม/อลูมิเนียม", "กระดาษแข็ง", "โฟม", "ผ้า"],
+    answer: 0,
+    exp: "โลหะที่ป้องกันสนิมได้ทนทานต่อสภาพอากาศภายนอก"
+  },
+  { q: "ทำขวดแยมที่ต้องต้มฆ่าเชื้อ ควรใช้",
+    choices: ["ขวดแก้วทนร้อน", "ขวดพลาสติกทั่วไป", "กล่องกระดาษ", "ถุงผ้า"],
+    answer: 0,
+    exp: "ขวดแก้วทนความร้อนใช้ต้มฆ่าเชื้อได้โดยไม่เสียรูป"
+  },
+  { q: "ด้ามไขควงควรทำจากอะไร",
+    choices: ["โลหะทั้งชิ้น", "พลาสติกฉนวน", "แก้ว", "กระดาษ"],
+    answer: 1,
+    exp: "ด้ามควรเป็นฉนวนเพื่อความปลอดภัยจากไฟฟ้ารั่ว"
+  },
+  { q: "แก้วน้ำเด็กเล็กควรหลีกเลี่ยงเพราะเหตุใด",
+    choices: ["หนักเกินไปและแตกง่าย", "เบาไป", "โปร่งใสเกินไป", "เก็บความเย็นไม่ได้"],
+    answer: 0,
+    exp: "แก้วอาจตกแตกเป็นอันตราย จึงนิยมใช้พลาสติกปลอดภัยกว่า"
+  },
+
+  // 31-40: สิ่งแวดล้อม/รีไซเคิล/ดูแลรักษา/สรุปแนวคิด
+  { q: "ข้อใดเป็นตัวอย่าง “รีไซเคิล”",
+    choices: ["ทิ้งขวดแก้วรวมกับขยะทั่วไป", "ล้างขวดแก้วแล้วนำไปเข้าถังรีไซเคิล", "เผากระดาษทั้งหมด", "ทิ้งแบตเตอรี่รวมกับใบไม้"],
+    answer: 1,
+    exp: "การแยกและส่งต่อเข้าสู่ระบบรีไซเคิลช่วยลดขยะและใช้ทรัพยากรคุ้มค่า"
+  },
+  { q: "ใช้สมุดจนหมดเล่มแล้ว “ปกแข็ง” ยังดีอยู่ ควรทำอย่างไร",
+    choices: ["ทิ้งทั้งหมด", "แยกปกแข็งกับกระดาษ ส่งรีไซเคิล", "เผาทิ้ง", "แช่น้ำให้ยุ่ย"],
+    answer: 1,
+    exp: "การแยกวัสดุแต่ละชนิดช่วยให้รีไซเคิลได้เหมาะสม"
+  },
+  { q: "การใช้วัสดุอย่างประหยัดช่วยอะไรได้มากที่สุด",
+    choices: ["ทำให้ของดูเก่า", "สร้างขยะมากขึ้น", "ลดการใช้ทรัพยากรและลดขยะ", "ทำให้สิ้นเปลืองเงิน"],
+    answer: 2,
+    exp: "ใช้คุ้มค่า = ลดใช้ทรัพยากรใหม่และลดปริมาณขยะ"
+  },
+  { q: "ข้อใดเป็น “การดูแลวัสดุ” ที่ถูกต้อง",
+    choices: ["ทำหกเลอะแล้วไม่เช็ด", "เก็บให้พ้นแดด/ความชื้นตามเหมาะสม", "ใช้ขวดแก้วโยนเล่น", "ใช้ปลั๊กพ่วงชำรุดต่อไป"],
+    answer: 1,
+    exp: "การเก็บรักษาถูกวิธีช่วยยืดอายุการใช้งานและปลอดภัย"
+  },
+  { q: "เมื่อวัสดุชำรุดเล็กน้อยควรทำอย่างไร",
+    choices: ["ซ่อมแซมหรือนำไปรีไซเคิล", "ทิ้งทันที", "เก็บไว้ไม่ใช้", "แช่น้ำ"],
+    answer: 0,
+    exp: "ซ่อม/รีไซเคิลเป็นแนวทางใช้ทรัพยากรอย่างคุ้มค่า"
+  },
+  { q: "ขวดพลาสติกหลังดื่มเสร็จ ควรทำอย่างไรเพื่อรีไซเคิลง่าย",
+    choices: ["บิด/กดให้แบนและปิดฝา", "ใส่ขยะทั่วไปทันที", "เผาทำลาย", "ทุบให้แตกเป็นชิ้นเล็ก ๆ"],
+    answer: 0,
+    exp: "บีบให้แบนประหยัดพื้นที่ และส่งลงถังรีไซเคิลถูกประเภท"
+  },
+  { q: "ข้อใด “ไม่เหมาะสม” กับการใช้วัสดุอย่างคุ้มค่า",
+    choices: ["พกขวดน้ำใช้ซ้ำ", "ใช้ถุงผ้าแทนถุงพลาสติก", "ใช้หลอดพลาสติกครั้งเดียวทิ้งทุกครั้ง", "ปิดไฟ/ปิดแอร์เมื่อไม่ใช้"],
+    answer: 2,
+    exp: "ของใช้ครั้งเดียวทิ้งสร้างขยะจำนวนมาก"
+  },
+  { q: "ถังขยะรีไซเคิลสีฟ้า/เหลืองในหลายพื้นที่ มักใช้สำหรับ",
+    choices: ["เศษอาหาร", "ขยะทั่วไป", "กระดาษ/พลาสติก/แก้ว/โลหะที่รีไซเคิลได้", "ขยะอันตราย"],
+    answer: 2,
+    exp: "สีอาจต่างกันตามท้องถิ่น แต่หลักคือแยกวัสดุที่รีไซเคิลได้"
+  },
+  { q: "ทำงานประดิษฐ์โปสเตอร์ ควรเลือกกาว/เทปชนิดใด",
+    choices: ["กาวน้ำ/กาวแท่ง หรือเทปกระดาษสำหรับงานกระดาษ", "กาวร้อนบนโฟมบาง", "กาวติดกระจกกับกระดาษ", "ยาทาเล็บแทนกาว"],
+    answer: 0,
+    exp: "เลือกกาวให้เหมาะกับวัสดุ ลดความเสียหายของชิ้นงาน"
+  },
+  { q: "แนวคิดสำคัญที่สุดเมื่อเลือกใช้วัสดุ คือ",
+    choices: ["สวยไว้ก่อน สมบัติไม่สำคัญ", "เลือกตามแฟชั่น", "เลือกให้ตรงสมบัติและความปลอดภัยของงาน", "เลือกที่แพงที่สุดเสมอ"],
+    answer: 2,
+    exp: "เลือกวัสดุให้ตรงสมบัติ ความปลอดภัย และความเหมาะสมของงานคือหลักสำคัญ"
+  }
+];
+
+/* ---------- สร้างข้อสอบลงหน้า ---------- */
+const quizContainer = document.getElementById("quizContainer");
+
+function renderQuiz(){
+  quizContainer.innerHTML = "";
+  QUESTIONS.forEach((item, idx) => {
+    const qBox = document.createElement("div");
+    qBox.className = "q-item";
+    qBox.id = `q${idx}`;
+
+    const head = document.createElement("div");
+    head.className = "q-head";
+    head.innerHTML = `ข้อ ${idx+1}. ${item.q}`;
+    qBox.appendChild(head);
+
+    const choicesWrap = document.createElement("div");
+    choicesWrap.className = "choices";
+
+    item.choices.forEach((c, cIdx) => {
+      const id = `q${idx}_c${cIdx}`;
+      const label = document.createElement("label");
+      label.className = "choice";
+      label.setAttribute("for", id);
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `q${idx}`;
+      input.id = id;
+      input.value = cIdx;
+
+      const text = document.createElement("div");
+      text.innerHTML = `<strong>${String.fromCharCode(65+cIdx)}.</strong> ${c}`;
+
+      label.appendChild(input);
+      label.appendChild(text);
+      choicesWrap.appendChild(label);
+    });
+
+    const exp = document.createElement("div");
+    exp.className = "explain";
+    exp.id = `exp${idx}`;
+    exp.innerHTML = `<strong>เฉลย:</strong> ${String.fromCharCode(65+item.answer)} — ${item.exp}`;
+
+    qBox.appendChild(choicesWrap);
+    qBox.appendChild(exp);
+
+    quizContainer.appendChild(qBox);
+  });
+}
+
+renderQuiz();
+
+/* ---------- ตรวจว่าตอบครบหรือยัง ---------- */
+function allAnswered(){
+  for(let i=0;i<QUESTIONS.length;i++){
+    if(!document.querySelector(`input[name="q${i}"]:checked`)){
+      return i; // index แรกที่ยังไม่ตอบ
+    }
+  }
+  return -1;
+}
+
+/* ---------- แสดงผลคะแนน + เฉลย ---------- */
+function gradeQuiz(){
+  let correct = 0;
+  QUESTIONS.forEach((item, idx) => {
+    const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+    const labels = document.querySelectorAll(`#q${idx} .choice`);
+    labels.forEach(lb => lb.classList.remove("correct","wrong"));
+
+    if(selected){
+      const val = Number(selected.value);
+      const right = item.answer;
+      const labelSelected = selected.parentElement;
+
+      // ไฮไลต์ตัวเลือกถูก
+      const rightInput = document.getElementById(`q${idx}_c${right}`);
+      if(rightInput) rightInput.parentElement.classList.add("correct");
+
+      if(val === right){
+        correct++;
+        labelSelected.classList.add("correct");
+        showExplain(idx, true);
+      }else{
+        labelSelected.classList.add("wrong");
+        showExplain(idx, false);
+      }
+
+      // ปิดการแก้ไขหลังส่ง
+      const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+      radios.forEach(r => r.disabled = true);
+    }
+  });
+
+  const total = QUESTIONS.length;
+  const percent = Math.round((correct/total)*100);
+  const scoreText = document.getElementById("scoreText");
+  scoreText.textContent = `คะแนน ${correct}/${total} (${percent}%)`;
+
+  const passBadge = document.getElementById("passBadge");
+  if(percent >= 80){
+    passBadge.textContent = "สถานะ: ผ่าน 🎉";
+    passBadge.classList.remove("wrong");
+    passBadge.classList.add("correct");
+    scoreText.classList.add("pass");
+    scoreText.classList.remove("fail");
+  }else{
+    passBadge.textContent = "สถานะ: ไม่ผ่าน ✋";
+    passBadge.classList.remove("correct");
+    passBadge.classList.add("wrong");
+    scoreText.classList.add("fail");
+    scoreText.classList.remove("pass");
+  }
+
+  const name = document.getElementById("studentName").value?.trim() || "—";
+  const cls = document.getElementById("className").value?.trim() || "—";
+  document.getElementById("summaryLine").textContent =
+    `ผู้ทำแบบทดสอบ: ${name} | ห้อง: ${cls} | วัน-เวลา: ${new Date().toLocaleString()}`;
+
+  document.getElementById("resultCard").style.display = "block";
+  document.getElementById("blockMsg").style.display = "none";
+  document.getElementById("submitBtn").disabled = true;
+}
+
+function showExplain(idx, isCorrect){
+  const ex = document.getElementById(`exp${idx}`);
+  if(ex){
+    ex.classList.add("show");
+  }
+}
+
+/* ---------- ปุ่ม/อีเวนต์ ---------- */
+document.getElementById("submitBtn").addEventListener("click", () => {
+  const notIdx = allAnswered();
+  if(notIdx >= 0){
+    const blk = document.getElementById("blockMsg");
+    blk.style.display = "block";
+    blk.innerHTML = `ยังตอบไม่ครบค่ะ ❗ กรุณาตอบให้ครบทุกข้อก่อนส่ง — ยังขาดข้อที่ <strong>${notIdx+1}</strong>`;
+    document.getElementById(`q${notIdx}`).scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  gradeQuiz();
+  window.scrollTo({top:document.body.scrollHeight, behavior:"smooth"});
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  // โหลดใหม่แบบนุ่มนวล
+  if(confirm("เริ่มทำใหม่ทั้งหมดใช่ไหม?")){
+    quizContainer.querySelectorAll("input[type=radio]").forEach(r=>r.disabled=false);
+    renderQuiz();
+    document.getElementById("resultCard").style.display = "none";
+    document.getElementById("submitBtn").disabled = false;
+    document.getElementById("blockMsg").style.display = "none";
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+});
+
+document.getElementById("reviewBtn").addEventListener("click", () => {
+  document.getElementById("quizCard").scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("backTopBtn").addEventListener("click", () => {
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+document.getElementById("btnScrollQuiz").addEventListener("click", () => {
+  document.getElementById("quizCard").scrollIntoView({behavior:"smooth"});
+});
+</script>
+</body>
+</html>
